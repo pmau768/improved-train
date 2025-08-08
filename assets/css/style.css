@@ -27,6 +27,9 @@ body {
     margin: 0;
 }
 
+/* Ensure backdrop pseudo-elements sit behind content */
+body { position: relative; z-index: 0; }
+
 .container {
     max-width: var(--max-content-width);
     margin-inline: auto;
@@ -304,3 +307,132 @@ footer a:hover { color: var(--color-primary-strong); }
 }
 
 /* Keep original media tweaks for service width as fallback */
+
+/* Modern Visual Enhancements & Subtle Animations */
+:root {
+    --glow-accent: rgba(255, 209, 0, 0.2);
+    --surface-glass: rgba(255, 255, 255, 0.06);
+}
+
+/* Ambient animated gradient backdrop */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: -20% -10% auto -10%;
+    height: 60vh;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(40% 60% at 20% 40%, rgba(179, 84, 35, 0.22), transparent 60%),
+                radial-gradient(35% 50% at 80% 30%, rgba(255, 209, 0, 0.12), transparent 60%),
+                radial-gradient(30% 45% at 50% 80%, rgba(255,255,255,0.06), transparent 60%);
+    filter: blur(16px);
+    transform: translateY(0) scale(1);
+    animation: blobFloat 22s ease-in-out infinite alternate;
+}
+
+body::after {
+    inset: auto -15% -25% -15%;
+    height: 55vh;
+    background: radial-gradient(35% 50% at 70% 30%, rgba(179, 84, 35, 0.18), transparent 60%),
+                radial-gradient(35% 50% at 20% 70%, rgba(0, 152, 255, 0.12), transparent 60%);
+    animation-duration: 26s;
+}
+
+@keyframes blobFloat {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.04); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Animated gradient shift for emergency banner */
+.emergency-banner {
+    background: linear-gradient(45deg, var(--color-primary), #ff4d4d, var(--color-primary));
+    background-size: 200% 200%;
+    animation: gradientShift 16s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Navigation underline animation */
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 2px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms ease;
+    border-radius: 2px;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+/* Hero gradient text + subtle glow */
+.page-hero {
+    position: relative;
+}
+
+.page-hero h1 {
+    background: linear-gradient(120deg, var(--color-accent) 0%, #fff 35%, var(--color-primary-strong) 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 6px 28px var(--glow-accent);
+}
+
+/* Glassy cards with gentle lift */
+.service {
+    background: var(--surface-glass);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+    backdrop-filter: blur(6px);
+    transition: transform 240ms ease, box-shadow 240ms ease, background 240ms ease, border-color 240ms ease;
+}
+
+.service:hover,
+.service:focus-visible {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+/* Reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    filter: blur(2px);
+    transition: opacity 600ms ease, transform 600ms ease, filter 600ms ease;
+    transition-delay: calc(var(--stagger-order, 0) * 60ms);
+    will-change: transform, opacity, filter;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* Optional: slide-in for the bottom CTA bar on load */
+body:not(.ready) .mobile-cta-bar { transform: translateY(120%); }
+body.ready .mobile-cta-bar { transform: translateY(0); transition: transform 600ms ease 200ms; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after { animation: none !important; }
+    .reveal { transition: none !important; }
+}
