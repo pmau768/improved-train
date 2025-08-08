@@ -20,6 +20,31 @@
     <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Wave Animation -->
+    <div class="wave-container">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="container">
         <nav>
@@ -41,10 +66,10 @@
     </div>
     <main id="main">
         <section class="page-hero container">
-            <h1>Trusted Marine Services, Always Ready</h1>
-            <p>Your one-stop solution for boat maintenance, repair, and emergency services in Jacksonville, FL.</p>
+            <h1 class="parallax-element">Trusted Marine Services, Always Ready</h1>
+            <p class="parallax-element">Your one-stop solution for boat maintenance, repair, and emergency services in Jacksonville, FL.</p>
         </section>
-        <section class="services container">
+        <section class="services container fade-in-up">
             <h2>Our Services</h2>
             <div class="service-grid">
                 <a href="pages/salvage-recovery.html" class="service emergency">
@@ -69,7 +94,7 @@
                 </a>
             </div>
         </section>
-        <section id="contact" class="contact-form container">
+        <section id="contact" class="contact-form container fade-in-up">
             <h2>Contact Us</h2>
             <form name="contact" method="POST" data-netlify="true">
                 <input type="hidden" name="form-name" value="contact">
@@ -83,7 +108,7 @@
             </form>
         </section>
     </main>
-    <footer class="container">
+    <footer class="container fade-in-up">
         <p>Serving Jacksonville, Jacksonville Beach, Ponte Vedra Beach, and St. Augustine | Call <a href="tel:904-570-0910">904-570-0910</a> | <a href="mailto:info@marineservices.com">info@marineservices.com</a></p>
         <p><a href="#" aria-label="Facebook">Facebook</a> | <a href="#" aria-label="Instagram">Instagram</a> | <a href="#" aria-label="Twitter">Twitter</a></p>
     </footer>
