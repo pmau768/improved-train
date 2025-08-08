@@ -60,3 +60,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Reveal on scroll and initial ready state
+(function () {
+    const onReady = () => document.body.classList.add('ready');
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        onReady();
+    } else {
+        window.addEventListener('DOMContentLoaded', onReady);
+    }
+
+    // Auto-tag common elements for reveal if not already tagged
+    const autoRevealSelectors = [
+        '.page-hero',
+        '.page-hero > *',
+        '.service-grid',
+        '.service-grid .service',
+        '.service-details',
+        '.service-details li',
+        '.contact-form',
+        'footer',
+        '.container > nav',
+        '.emergency-banner'
+    ];
+    autoRevealSelectors.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((el) => el.classList.add('reveal'));
+    });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || revealElements.length === 0) {
+        revealElements.forEach(el => el.classList.add('in-view'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+    revealElements.forEach((el, index) => {
+        el.style.setProperty('--stagger-order', String(index % 12));
+        observer.observe(el);
+    });
+})();
